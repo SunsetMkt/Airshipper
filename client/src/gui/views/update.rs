@@ -1,15 +1,9 @@
 //! Display an update dialog (windows only) to ask whether to update airshipper
 
 use super::{Action, View};
-use crate::gui::{
-    style::{
-        button::{ButtonState, ButtonStyle, DownloadButtonStyle},
-        container::ContainerStyle,
-    },
-    widget::*,
-};
+use crate::gui::{style, widget::*};
 use iced::{
-    Alignment, Length, Task,
+    Length, Task,
     alignment::{Horizontal, Vertical},
     widget::{button, column, container, row, text},
 };
@@ -46,23 +40,23 @@ impl UpdateView {
     pub fn view(&self) -> Element<'_, UpdateViewMessage> {
         // Contains everything
         let content = column![]
-            .align_items(Alignment::Center)
+            .align_x(Horizontal::Center)
             .spacing(10)
             .push(text(&self.message).size(14))
             .push(
                 row![]
-                    .align_items(Alignment::Center)
+                    .align_y(Vertical::Center)
                     .spacing(100)
                     .padding(10)
                     .push(
                         button(
                             text("Skip")
                                 .size(14)
-                                .horizontal_alignment(Horizontal::Center)
-                                .vertical_alignment(Vertical::Center),
+                                .align_x(Horizontal::Center)
+                                .align_y(Vertical::Center),
                         )
                         .on_press(UpdateViewMessage::SkipPressed)
-                        .style(ButtonStyle::Download(DownloadButtonStyle::Skip))
+                        .style(style::button::download_skip)
                         .width(Length::Fixed(100.0))
                         .height(Length::Fixed(35.0))
                         .padding(7),
@@ -72,13 +66,11 @@ impl UpdateView {
                             text("Update")
                                 .size(14)
                                 .width(Length::Fixed(90.0))
-                                .horizontal_alignment(Horizontal::Center)
-                                .vertical_alignment(Vertical::Center),
+                                .align_x(Horizontal::Center)
+                                .align_y(Vertical::Center),
                         )
                         .on_press(UpdateViewMessage::UpdatePressed)
-                        .style(ButtonStyle::Download(DownloadButtonStyle::Update(
-                            ButtonState::Enabled,
-                        )))
+                        .style(style::button::download_update)
                         .width(Length::Fixed(100.0))
                         .height(Length::Fixed(35.0))
                         .padding(7),
@@ -88,9 +80,9 @@ impl UpdateView {
         container(content)
             .width(Length::Fill)
             .height(Length::Fill)
-            .style(ContainerStyle::Dark)
-            .center_x()
-            .center_y()
+            .style(style::container::dark)
+            .center_x(Length::Fill)
+            .center_y(Length::Fill)
             .into()
     }
 
