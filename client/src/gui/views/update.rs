@@ -23,6 +23,7 @@ impl Default for UpdateView {
     }
 }
 
+#[expect(clippy::large_enum_variant)]
 #[derive(Debug, Clone)]
 pub enum UpdateViewMessage {
     // Messages
