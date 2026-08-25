@@ -192,7 +192,7 @@ impl Airshipper {
 
         (
             Self {
-                view: View::Default,
+                view: View::default(),
                 default_view: DefaultView::default(),
                 #[cfg(windows)]
                 update_view: UpdateView::default(),
